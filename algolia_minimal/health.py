@@ -1,13 +1,6 @@
 import sys
 import requests
 from typing import Optional, Union, List
-from algoliasearch.exceptions import RequestException
-# at first sight, I was willing to inherit from
-# algoliasearch.configs.Config
-# Using the same mecanics, I had troubles querying status.algolia.com
-# without error, even when using an HostsCollection containing only
-# this URL.
-# As a shortcut, I'm directly using the requests module here.
 
 # Python 3
 if sys.version_info >= (3, 0):
@@ -15,6 +8,17 @@ if sys.version_info >= (3, 0):
 else:
     from urllib import quote
 
+
+class RequestException(Exception):
+    '''
+    very similar to algoliasearch.exceptions.RequestException.
+    '''
+    
+    def __init__(self, message, status_code):
+        # type: (str, Optional[int]) -> None
+        self.message = message
+        self.status_code = status_code
+    
 
 class HealthClient(object):
     '''
@@ -56,7 +60,6 @@ class HealthClient(object):
         '''
 
         if len(servers):
-            print(servers)
             servers_list = ",".join((quote(s) for s in servers))
             return self.try_http_query('/1/status/{}'.format(servers_list))
         else:
@@ -80,7 +83,6 @@ class HealthClient(object):
     def create(app_id=None, api_key=None):
         config = {
             'host': 'https://status.algolia.com'
-
         }
         return HealthClient.create_with_config(config)
 
