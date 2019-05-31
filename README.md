@@ -32,7 +32,7 @@ from the root directory:
 `python -m unittest tests.test_healthclient`
 
 
-# About implementation:
+# About this implementation:
 
 I decided to use a variadic list of arguments to match the design of the underlying HTTP API - since the list of servers can be specified in a comma-separated list directly into the URL.
 
