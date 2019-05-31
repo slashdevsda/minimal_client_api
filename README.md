@@ -14,6 +14,16 @@ Since I already took a lot of time on source analysis and the first part, I deci
 This case looks way simpler since we don't have any "writes" to handle, only reads, so I'm not too upset about not using the whole HTTP layer that `algoliasearch.http` provides.
 
 
+## How to use it
+
+you can clone this repository, add `algolia_minimal` to your PYTHON_PATH, or _pip install it_.
+
+```
+git clone git@github.com:slashdevsda/minimal_client_api.git
+pip install minimal_client_api
+```
+
+
 
 # About implementation:
 
@@ -21,6 +31,9 @@ I decided to use a variadic list of arguments to match the design of the underly
 
 
 ```python
+from algolia_minimal.health import HealthClient
+
+
 h = HealthClient.create('', '')
 print(h.status())
 print(h.status("c10-eu", "c4-eu"))
